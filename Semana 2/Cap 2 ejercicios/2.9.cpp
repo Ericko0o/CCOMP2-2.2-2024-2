@@ -1,9 +1,20 @@
-#include <iostream> 
-using namespace std;
+#include <iostream>
 
-cout << "Welcome to the maximal heart rate calculator";  // a)
+int main() {
 
-a = b * c;  // b)
-// This program calculates the maximal heart rate of an individual.  // c)
+    // a)
+    std::cout << "Welcome to the maximal heart rate calculator" << std::endl;
 
-cin >> a >> b >> c;  // d)
+    int a, b, c;
+
+    // d) Ingresar tres valores enteros
+    std::cout << "Ingrese tres valores enteros: ";
+    std::cin >> a >> b >> c;
+
+    // b) Asignacion
+    a = b * c;
+
+    std::cout << "El producto de b y c es: " << a << std::endl;
+
+    return 0;
+}
