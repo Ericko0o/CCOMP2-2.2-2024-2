@@ -6,9 +6,7 @@ using namespace std;
 // class Date con validacion de mes
 class Date {
 private:
-    int month;
-    int day;
-    int year;
+    int month; int day; int year;
 public:
     Date(int m, int d, int y) : day(d), year(y) {
         if (m >= 1 && m <= 12) {

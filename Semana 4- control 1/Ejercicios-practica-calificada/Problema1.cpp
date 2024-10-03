@@ -9,6 +9,6 @@ int main() {
             sum += i;
         }
     }
-    cout << "La suma de todos los múltiplos de 3 o 5 menores a 1000000 es: " << sum << endl;
+    cout << "La suma de todos los multiplos de 3 o 5 menores a 1000000 es: " << sum << endl;
     return 0;
 }

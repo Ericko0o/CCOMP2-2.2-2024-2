@@ -32,7 +32,8 @@ int main() {
         long long producto = 1;
 
         for (int j = 0; j < 13; j++) {
-            producto *= numero[i + j];
+            producto *= (numero[i + j] - '0');
+
         }
 
         if (producto > mayorProducto) {
