@@ -101,14 +101,24 @@ private:
     bool firstMove;
 
 public:
-    PPawn(bool player, int pos) : Piece('P', player, pos) {
+    PPawn(bool player, int pos) : Piece('P', player, pos), firstMove(true) {
         setPiece('P', player, pos, false);
-    }
+    }   
 
     
     //___________________________________--
     bool hasFirstMove()const  {return firstMove;}
     void setFirstMove(bool value) {firstMove=value;}
+
+    void movePiece(Piece* piece, int targetPos) {
+    piece->setPosition(targetPos);
+
+    // Si la pieza es un peón, actualiza su estado de primer movimiento
+    if (PPawn* pawn = dynamic_cast<PPawn*>(piece)) {
+        pawn->setFirstMove(false);
+    }
+}
+
     //____________________________________
 
     // Override setTexture

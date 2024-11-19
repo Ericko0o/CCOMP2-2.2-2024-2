@@ -12,30 +12,74 @@
         Piece::setTexture();
 
     }
-    void PKing::calcPiecePossibleMoves(){
-        int piecePos{getPosition()};
-        getPossibleMoves().clear();
+   void PKing::calcPiecePossibleMoves() {
+    int piecePos{getPosition()};
+    getPossibleMoves().clear();
 
-        if((piecePos / 8) != 0){
-            getPossibleMoves().push_back(piecePos - 8);
-            if((piecePos % 8) != 0)
-                getPossibleMoves().push_back(piecePos - 9);
-            if((piecePos % 8) != 7)
-                getPossibleMoves().push_back(piecePos - 7);
+    // Movimiento hacia arriba
+    if ((piecePos / 8) != 0) {
+        int newPos = piecePos - 8;
+        if (eraseMovesA(newPos) != 1) { // Verifica que no sea una pieza del mismo color
+            getPossibleMoves().push_back(newPos);
         }
-        if((piecePos / 8) != 7){
-            getPossibleMoves().push_back(piecePos + 8);
-            if((piecePos % 8) != 0)
-                getPossibleMoves().push_back(piecePos + 7);
-            if((piecePos % 8) != 7)
-                getPossibleMoves().push_back(piecePos + 9);
-        }
-        if((piecePos % 8) != 0)
-            getPossibleMoves().push_back(piecePos - 1);
-        if((piecePos % 8) != 7)
-           getPossibleMoves().push_back(piecePos + 1);
 
+        // Diagonal superior izquierda
+        if ((piecePos % 8) != 0) {
+            newPos = piecePos - 9;
+            if (eraseMovesA(newPos) != 1) {
+                getPossibleMoves().push_back(newPos);
+            }
         }
+
+        // Diagonal superior derecha
+        if ((piecePos % 8) != 7) {
+            newPos = piecePos - 7;
+            if (eraseMovesA(newPos) != 1) {
+                getPossibleMoves().push_back(newPos);
+            }
+        }
+    }
+
+    // Movimiento hacia abajo
+    if ((piecePos / 8) != 7) {
+        int newPos = piecePos + 8;
+        if (eraseMovesA(newPos) != 1) {
+            getPossibleMoves().push_back(newPos);
+        }
+
+        // Diagonal inferior izquierda
+        if ((piecePos % 8) != 0) {
+            newPos = piecePos + 7;
+            if (eraseMovesA(newPos) != 1) {
+                getPossibleMoves().push_back(newPos);
+            }
+        }
+
+        // Diagonal inferior derecha
+        if ((piecePos % 8) != 7) {
+            newPos = piecePos + 9;
+            if (eraseMovesA(newPos) != 1) {
+                getPossibleMoves().push_back(newPos);
+            }
+        }
+    }
+
+    // Movimiento hacia los costados
+    if ((piecePos % 8) != 0) {
+        int newPos = piecePos - 1;
+        if (eraseMovesA(newPos) != 1) {
+            getPossibleMoves().push_back(newPos);
+        }
+    }
+
+    if ((piecePos % 8) != 7) {
+        int newPos = piecePos + 1;
+        if (eraseMovesA(newPos) != 1) {
+            getPossibleMoves().push_back(newPos);
+        }
+    }
+}
+
 
 
 //?QUEEN
@@ -348,35 +392,29 @@
     // Resto de la implementación...
     }
 
-    void PKnight::calcPiecePossibleMoves(){
-        int piecePos{getPosition()};
-        getPossibleMoves().clear();
+void PKnight::calcPiecePossibleMoves() {
+    int piecePos{getPosition()};
+    getPossibleMoves().clear();
 
-        if((piecePos / 8) != 0 ){
-            if((piecePos % 8) >= 2 ){
-                getPossibleMoves().push_back(piecePos - 10);}
-            if( (piecePos % 8) <= 5 ){
-                getPossibleMoves().push_back(piecePos - 6);}
-            if((piecePos / 8) != 1){
-                if((piecePos % 8) >= 1 ){
-                    getPossibleMoves().push_back(piecePos - 17);}
-                if((piecePos % 8) <= 6 ){
-                    getPossibleMoves().push_back(piecePos - 15);}
+    // Posibles movimientos relativos del caballo
+    std::vector<int> relativeMoves = {-17, -15, -10, -6, 6, 10, 15, 17};
+
+    for (int move : relativeMoves) {
+        int newPos = piecePos + move;
+
+        // Verifica límites del tablero
+        if (newPos >= 0 && newPos < 64) {
+            // Verifica que el movimiento no rompa filas del tablero
+            int rowDiff = abs((newPos % 8) - (piecePos % 8));
+            if (rowDiff <= 2) {
+                int eraseResult = eraseMovesA(newPos);
+
+                if (eraseResult != 1) { // Movimiento válido si no hay una pieza del mismo color
+                    getPossibleMoves().push_back(newPos);
+                }
             }
         }
-        if((piecePos / 8) != 7){
-            if((piecePos % 8) >= 2 ){
-                getPossibleMoves().push_back(piecePos + 6);}
-            if( (piecePos % 8) <= 5 ){
-                getPossibleMoves().push_back(piecePos + 10);}
-            if((piecePos / 8) != 6){
-                if((piecePos % 8) >= 1 ){
-                    getPossibleMoves().push_back(piecePos + 15);}
-                if((piecePos % 8) <= 6 ){
-                    getPossibleMoves().push_back(piecePos + 17);}
-            }
-        }
-
+    }
 }
 
 //?PAWN
@@ -389,29 +427,47 @@
     
     }
 
-    void PPawn::calcPiecePossibleMoves() {
-        int piecePos{getPosition()};
-        getPossibleMoves().clear();
+void PPawn::calcPiecePossibleMoves() {
+    int piecePos = getPosition();
+    getPossibleMoves().clear();
 
-        int newPos = piecePos-8;
-        int eraseResult = eraseMovesA(newPos);
+    // Movimiento hacia adelante depende del color del jugador
+    int forwardStep = m_player ? -8 : 8;
+    int startRow = m_player ? 6 : 1; // Fila inicial de los peones
 
-        if (m_player) {
-            if (firstMove) {
-                for (int i = 0; i <= 2; ++i) {
-                    getPossibleMoves().push_back(piecePos - 8 * i);
-                }
-                setFirstMove(false);
+    // Movimiento de 1 casilla hacia adelante
+    int oneStepPos = piecePos + forwardStep;
+    if (eraseMovesA(oneStepPos) == 3) { // Casilla vacía
+        getPossibleMoves().push_back(oneStepPos);
+
+        // Movimiento de 2 casillas hacia adelante (solo si es el primer movimiento)
+        if (!getGame()->hasPawnMovedTwoSquares() && (piecePos / 8) == startRow) {
+            int twoStepPos = piecePos + 2 * forwardStep;
+            if (eraseMovesA(twoStepPos) == 3) { // Ambas casillas deben estar libres
+                getPossibleMoves().push_back(twoStepPos);
+
+                // Marca que ya se ha movido un peón dos casillas
+                getGame()->setPawnMovedTwoSquares(true);
             }
-
-            if (eraseResult == 3 || eraseResult == 2) {
-                getPossibleMoves().push_back(newPos);
-            } 
-            
         }
-        else{
-            //if (eraseResult == 3 || eraseResult == 2) {
-                getPossibleMoves().push_back(piecePos+8);
-            //} 
-         }
+    }
+
+    // Captura en diagonal
+    for (int diagStep : {forwardStep - 1, forwardStep + 1}) {
+        int diagonalPos = piecePos + diagStep;
+
+        // Verifica que la posición diagonal sea válida y que haya una pieza enemiga
+        if (diagonalPos >= 0 && diagonalPos < 64) {
+            int rowDiff = abs((diagonalPos % 8) - (piecePos % 8));
+            if (rowDiff == 1 && eraseMovesA(diagonalPos) == 2) {
+                getPossibleMoves().push_back(diagonalPos);
+            }
+        }
+    }
+
+    // Captura hacia adelante (si hay una pieza enemiga directamente enfrente)
+    if (eraseMovesA(oneStepPos) == 2) { // Casilla tiene pieza enemiga
+        getPossibleMoves().push_back(oneStepPos);
+    }
 }
+
