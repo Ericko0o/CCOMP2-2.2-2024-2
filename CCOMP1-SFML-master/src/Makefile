@@ -3,13 +3,13 @@ SFML_INCLUDE = C:\SFML\include
 SFML_LIB = C:\SFML\lib
 
 # Lista de archivos fuente
-SOURCES = main.cpp chessGame.cpp board.cpp piece.cpp Piece_hijas.cpp pieceTextures.cpp
+SOURCES = main.cpp chessGame.cpp board.cpp piece.cpp Piece_hijas.cpp pieceTextures.cpp chessRules.cpp
 
 # Lista de archivos objeto
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # Lista de archivos de encabezado
-HEADERS = chessGame.h board.h piece.h Piece_hijas.h pieceTextures.h
+HEADERS = chessGame.h board.h piece.h Piece_hijas.h pieceTextures.h chessRules.h
 
 # Nombre del ejecutable
 EXECUTABLE = main

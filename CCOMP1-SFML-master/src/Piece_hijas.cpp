@@ -428,7 +428,7 @@ void PKnight::calcPiecePossibleMoves() {
     }
 
 void PPawn::calcPiecePossibleMoves() {
-    int piecePos = getPosition();
+    int piecePos{getPosition()};
     getPossibleMoves().clear();
 
     // Movimiento hacia adelante depende del color del jugador
@@ -440,16 +440,7 @@ void PPawn::calcPiecePossibleMoves() {
     if (eraseMovesA(oneStepPos) == 3) { // Casilla vacía
         getPossibleMoves().push_back(oneStepPos);
 
-        // Movimiento de 2 casillas hacia adelante (solo si es el primer movimiento)
-        if (!getGame()->hasPawnMovedTwoSquares() && (piecePos / 8) == startRow) {
-            int twoStepPos = piecePos + 2 * forwardStep;
-            if (eraseMovesA(twoStepPos) == 3) { // Ambas casillas deben estar libres
-                getPossibleMoves().push_back(twoStepPos);
-
-                // Marca que ya se ha movido un peón dos casillas
-                getGame()->setPawnMovedTwoSquares(true);
-            }
-        }
+        
     }
 
     // Captura en diagonal
@@ -465,9 +456,5 @@ void PPawn::calcPiecePossibleMoves() {
         }
     }
 
-    // Captura hacia adelante (si hay una pieza enemiga directamente enfrente)
-    if (eraseMovesA(oneStepPos) == 2) { // Casilla tiene pieza enemiga
-        getPossibleMoves().push_back(oneStepPos);
-    }
 }
 

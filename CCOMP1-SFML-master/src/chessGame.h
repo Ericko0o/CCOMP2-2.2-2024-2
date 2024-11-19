@@ -55,7 +55,7 @@ private:
     void eraseMoves(Piece*);    
     void checkMate();
     */
-    bool pawnMovedTwoSquares;
+    
 
     void updateInfo();
 
@@ -78,10 +78,6 @@ public:
     bool getMate(){
         return mate;
     }
-    ChessGame() : pawnMovedTwoSquares(false) {}  // Inicializa en false
-    bool hasPawnMovedTwoSquares() const { return pawnMovedTwoSquares; }
-    void setPawnMovedTwoSquares(bool moved) { pawnMovedTwoSquares = moved; }
-
 
     bool selectPiece(int pos);
 

@@ -1,5 +1,7 @@
 #include <iostream>
 #include "chessGame.h"
+
+
 using namespace std;
 
 
@@ -7,14 +9,13 @@ using namespace std;
 ChessGame::ChessGame(sf::Color bordL_col = sf::Color::Blue, sf::Color bordD_col = sf::Color::Black)
 : board(bordL_col,bordD_col)
 {   
-    std::cout<<"queee"<<std::endl;
 
     font.loadFromFile("Texturesa/arial.ttf");
     
     
     infoRestart.setFillColor(sf::Color::White);
     infoRestart.setOutlineThickness(-5.f);
-    infoRestart.setOutlineColor(sf::Color::Black);
+    infoRestart.setOutlineColor(sf::Color::White);
     infoRestart.setPosition(sf::Vector2f(512.f,0.f));
     infoRestart.setSize(sf::Vector2f(256.f, 50.f));
 
@@ -53,7 +54,7 @@ void ChessGame::restart(){
     playerTurn = true;
     playerTurnCheck = false;
     mate = false;
-    turn = 1;
+    turn = 0;
 
     blackPieces[0] = new PRook(false, 7);
     blackPieces[1] = new PKnight(false, 6);
@@ -90,9 +91,9 @@ void ChessGame::updateInfo(){
 
     if(!mate){
         if(playerTurn)
-            textSituation.setString("White's Turn");
+            textSituation.setString("White piece turn");
         else
-            textSituation.setString("Blacks's Turn");
+            textSituation.setString("Black piece turn");
         
         if(playerTurnCheck)
             textSituation.setString(textSituation.getString() + "\nCheck");
@@ -144,8 +145,8 @@ void ChessGame::createSelectSquare(){
    
         selectionBorder.setSize(sf::Vector2f(64, 64)); // Tamaño del cuadro
         selectionBorder.setFillColor(sf::Color::Transparent); // Sin relleno
-        selectionBorder.setOutlineColor(sf::Color::Yellow); // Contorno rojo
-        selectionBorder.setOutlineThickness(-3.f); // Grosor del contorno
+        selectionBorder.setOutlineColor(sf::Color::Red); // Contorno rojo
+        selectionBorder.setOutlineThickness(-5.f); // Grosor del contorno
         int x = (selectedPiece->getPosition() % 8) * 64;
         int y = (selectedPiece->getPosition() / 8) * 64;
         selectionBorder.setPosition(x,y);
