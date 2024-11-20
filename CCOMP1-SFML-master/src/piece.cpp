@@ -34,7 +34,7 @@ void Piece::move(){
 
 void Piece::setTexture(){    
     m_sprite.setOrigin(sf::Vector2f(m_sprite.getTexture()->getSize().x/2 , m_sprite.getTexture()->getSize().y/2));//definimos el centro de la textura, el origen donde se realizaran transformaciones
-    m_sprite.setScale(sf::Vector2f(0.150f,0.150)); //la sprite se escala a 0.150 veces su tamaño original, se hace mas pequeña
+    m_sprite.setScale(sf::Vector2f(0.260f,0.260)); //la sprite se escala a 0.150 veces su tamaño original, se hace mas pequeña
 }
 
 void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const{
@@ -44,10 +44,7 @@ void Piece::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 void Piece::calcPiecePossibleMoves(){
     
 }
-/*int Piece::eraseMoves(int){
-    
-}
-*/
+
 
  void Piece::setPosiciones(const std::array<int, 16>& new_posiciones) {
         posiciones = new_posiciones;

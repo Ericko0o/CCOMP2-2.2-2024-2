@@ -1,5 +1,6 @@
 #include "chessRules.h"
 
+/*
 bool ChessRules::isCheck(const std::vector<Piece*>& playerPieces, const std::vector<Piece*>& opponentPieces, int kingPosition) {
     for (const auto& opponentPiece : opponentPieces) {
         if (opponentPiece->getPosition() == -1) continue; // Pieza capturada
@@ -66,3 +67,4 @@ void ChessRules::filterIllegalMoves(Piece* piece, const std::vector<Piece*>& pla
     piece->setPosition(originalPosition); // Restaurar posición original
     piece->getPossibleMoves() = legalMoves; // Actualizar movimientos legales
 }
+*/
