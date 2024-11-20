@@ -10,6 +10,8 @@ set(FILES
     piece.h
     pieceTextures.cpp
     pieceTextures.h
+    chessRules.cpp
+    chessRules.h
     )
 
 add_executable(${CMAKE_PROJECT_NAME} ${FILES})

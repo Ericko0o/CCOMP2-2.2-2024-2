@@ -1,5 +1,6 @@
 #include <iostream>
 #include "chessGame.h"
+#include "chessRules.h"
 
 
 using namespace std;
@@ -79,11 +80,48 @@ void ChessGame::restart(){
         whitePieces[i] = new PPawn(true, 48 + (i - 8));
         blackPieces[i] = new PPawn(false, 15 - (i - 8));
     }
-    //todo, cambiar updatInfo a calcaPossiblemoves
+    
     calcPossibleMoves();
     updateInfo();
 
 }
+
+/*
+void ChessGame::restart() {
+    selected = false;
+    playerTurn = true;
+    playerTurnCheck = false;
+    mate = false; // Reiniciar estado de jaque mate
+    turn = 0;
+
+    blackPieces[0] = new PRook(false, 7);
+    blackPieces[1] = new PKnight(false, 6);
+    blackPieces[2] = new PBishop(false, 5);
+    blackPieces[3] = new PKing(false, 4);
+    blackPieces[4] = new PQueen(false, 3);
+    blackPieces[5] = new PBishop(false, 2);
+    blackPieces[6] = new PKnight(false, 1);
+    blackPieces[7] = new PRook(false, 0);
+
+    whitePieces[0] = new PRook(true, 56);
+    whitePieces[1] = new PKnight(true, 57);
+    whitePieces[2] = new PBishop(true, 58);
+    whitePieces[3] = new PKing(true, 59);
+    whitePieces[4] = new PQueen(true, 60);
+    whitePieces[5] = new PBishop(true, 61);
+    whitePieces[6] = new PKnight(true, 62);
+    whitePieces[7] = new PRook(true, 63);
+
+    for (int i = 8; i < 16; i++) {
+        whitePieces[i] = new PPawn(true, 48 + (i - 8));
+        blackPieces[i] = new PPawn(false, 15 - (i - 8));
+    }
+
+    calcPossibleMoves(); // Recalcular movimientos
+    updateInfo();
+}
+
+*/
 
 void ChessGame::updateInfo(){
     textTurn.setString("Turn: " + std::to_string(turn));
@@ -143,7 +181,7 @@ void ChessGame::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 void ChessGame::createSelectSquare(){
     sf::RectangleShape tmp;
    
-        selectionBorder.setSize(sf::Vector2f(64, 64)); // Tamaño del cuadro
+        selectionBorder.setSize(sf::Vector2f(64, 64)); // tamaño del cuadro
         selectionBorder.setFillColor(sf::Color::Transparent); // Sin relleno
         selectionBorder.setOutlineColor(sf::Color::Red); // Contorno rojo
         selectionBorder.setOutlineThickness(-5.f); // Grosor del contorno
@@ -258,6 +296,73 @@ void ChessGame::moveSelected(int pos){
 
 }
 
+/*
+void ChessGame::moveSelected(int pos) {
+    bool validMove{false};
+
+    if ((selectedPiece == NULL) || !selected)
+        return;
+
+    // Verificar si el movimiento es válido
+    for (int i = 0; i < selectedPiece->getPossibleMoves().size(); i++) {
+        if (pos == selectedPiece->getPossibleMoves().at(i)) {
+            validMove = true;
+            break;
+        }
+    }
+
+    if (validMove) {
+        selectedPiece->setPosition(pos);
+
+        // Capturar piezas del oponente
+        for (int i = 0; i < 16; i++) {
+            if (selectedPiece->getPlayer()) {
+                if (blackPieces[i]->getPosition() == pos) {
+                    blackPieces[i]->setPosition(-1); // Pieza capturada
+                    break;
+                }
+            } else {
+                if (whitePieces[i]->getPosition() == pos) {
+                    whitePieces[i]->setPosition(-1); // Pieza capturada
+                    break;
+                }
+            }
+        }
+
+        // Alternar turno después del movimiento
+        playerTurn = !playerTurn;
+        calcPossibleMoves();
+
+        // Verificar jaque mate
+        ChessRules rules;
+
+        // Crear vectores temporales para las piezas
+        std::vector<Piece*> currentPlayerPieces(whitePieces, whitePieces + 16);
+        std::vector<Piece*> opponentPlayerPieces(blackPieces, blackPieces + 16);
+
+        if (!playerTurn) {
+            // Cambiar los roles de las piezas si es turno de las negras
+            currentPlayerPieces.assign(blackPieces, blackPieces + 16);
+            opponentPlayerPieces.assign(whitePieces, whitePieces + 16);
+        }
+
+        bool checkmate = rules.isCheckmate(currentPlayerPieces, opponentPlayerPieces);
+
+        if (checkmate) {
+            mate = true; // Detener el juego
+            std::cout << "¡Jaque mate! "
+                      << (playerTurn ? "Jugador Blanco Gana" : "Jugador Negro Gana")
+                      << "." << std::endl;
+        }
+    }
+
+    // Limpiar selección
+    selectedPiece = NULL;
+    selected = false;
+}
+
+*/
+
 void ChessGame::calcPossibleMoves(){
     Piece* tmp;
    
@@ -278,27 +383,10 @@ void ChessGame::calcPossibleMoves(){
 
 
         tmp->calcPiecePossibleMoves();
-        /*
-        for (int j=0;j<16;j++){
-            if (j<16)
-            tmp->eraseMoves(whitePieces[j]);
-        else
-            tmp->eraseMoves(blackPieces[j]);  
-        }
-        */
+
         
     }
-    /*
-    // Erase illegal moves on current player's pieces
-    for(int i = 0; i < 16; i++){
-        if(playerTurn){
-            eraseMoves(whitePieces[i]);
-        }
-        else{
-            eraseMoves(blackPieces[i]);
-        }
-    }
-    */
+
     updateInfo();
     turn++;
 }
@@ -334,30 +422,3 @@ std::array<int, 16> ChessGame::getPosicionesBlackPieces()  {
     return bposiciones;
 
 }
-/*
-void ChessGame::eraseMoves(Piece *comp){
-    
-    if(tmpPiece->getPlayer() == playerTurn){
-        
-        // Erase moves on same team pieces
-        
-        for(int i = 0; i<16; i++){
-            for(int j = 0; j<tmpPiece->getPossibleMoves().size();j++){
-
-                if(tmpPiece->getPlayer()){ // White
-                    if(tmpPiece->getPossibleMoves().at(j) == whitePieces[i]->getPosition()){
-                        tmpPiece->getPossibleMoves().erase( tmpPiece->getPossibleMoves().begin() + j );
-                        break;
-                    }
-                }
-                else{ // Black
-                    if(tmpPiece->getPossibleMoves().at(j) == blackPieces[i]->getPosition()){
-                        tmpPiece->getPossibleMoves().erase( tmpPiece->getPossibleMoves().begin() + j );
-                        break;
-                    } 
-                }
-            }
-        }
-    }
-}
-*/

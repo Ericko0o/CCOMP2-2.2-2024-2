@@ -52,8 +52,8 @@ private:
     
     /*
    
-    void eraseMoves(Piece*);    
-    void checkMate();
+    void isCheck(Piece*);    
+    void isCheckmate();
     */
     
 
@@ -88,13 +88,6 @@ public:
 
      std::array<int, 16> getPosicionesWhitePieces();
      std::array<int, 16> getPosicionesBlackPieces();
-
-    //void vectorcoy(){
-      //  std::array<Piece*, 16> copiaWhitePieces = whitePieces;
-      //  std::array<Piece*, 16> copiaBlackPieces = blackPieces;
-    //}
-    //!
-
 
 };
 

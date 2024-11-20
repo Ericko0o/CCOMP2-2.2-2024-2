@@ -106,7 +106,6 @@ public:
     }   
 
     
-    //___________________________________--
     bool hasFirstMove()const  {return firstMove;}
     void setFirstMove(bool value) {firstMove=value;}
 
@@ -119,7 +118,6 @@ public:
     }
 }
 
-    //____________________________________
 
     // Override setTexture
     void setTexture()override;
