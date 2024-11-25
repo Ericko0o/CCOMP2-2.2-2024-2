@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-//!prueba de erase
+//!p erase
 std::array<int, 16> Piece::posiciones;
 std::array<int, 16> Piece::bposiciones;
 
@@ -19,9 +19,6 @@ void Piece::move(){
     if(m_position<=-1 || 64<=m_position){
         m_position = -1;
         m_sprite.setColor(sf::Color(0x00000000));//transparente
-        m_sprite.setPosition(sf::Vector2f((m_position % 8) * 64.f + 32.f, (m_position / 8) * 64.f + 32.f)); //con el resto obtenemos el indice de columna, con la div el indice de fila
-        //possibleMoves.clear();
-        m_moved = true;
     }
     else{
         m_sprite.setPosition(sf::Vector2f((m_position % 8) * 64.f + 32.f, (m_position / 8) * 64.f + 32.f));

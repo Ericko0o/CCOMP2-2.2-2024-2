@@ -6,12 +6,12 @@
 #include <array>
 #include <string>
 #include <vector>
-//#include "pieceTextures.h"
+
 using namespace std;
 class Piece : public sf::Drawable{
 
 public:
-    //!prueba erase moves
+
     friend class ChessGame;
     //!
 
@@ -20,7 +20,7 @@ public:
       m_position{-1}, m_moved{true}{ 
         
     }
-    //SETS Y GETS
+    //SETTERS - GETTERS
     void setPiece(char type, bool player, int pos, bool moved=false);
 
     void setType(char ch){m_type = ch; setTexture();}
@@ -37,19 +37,21 @@ public:
 
     void setMoved(bool moved){m_moved = moved;}
     bool getMoved(){return m_moved;}
-
     //CALC POSSIBLE MOVES
     std::vector<int>& getPossibleMoves(){return possibleMoves;}
+
     virtual void calcPiecePossibleMoves();
     int eraseMovesA(int);
 
-    //!prueba de erase
+    //!p erase
 
     static std::array<int, 16> posiciones;
     static std::array<int, 16> bposiciones;
+
     static void setPosiciones(const std::array<int, 16>& new_posiciones);
 
     static void setPosicionesB(const std::array<int, 16>& new_posiciones);
+
 
 protected:
 

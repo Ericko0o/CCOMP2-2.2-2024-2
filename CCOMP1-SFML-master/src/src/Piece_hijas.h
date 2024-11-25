@@ -1,5 +1,3 @@
-// piece_hijas.h
-
 #ifndef _PIECE_HIJAS_H
 #define _PIECE_HIJAS_H
 

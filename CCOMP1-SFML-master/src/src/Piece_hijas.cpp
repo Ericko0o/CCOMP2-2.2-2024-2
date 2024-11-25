@@ -1,10 +1,8 @@
 #include "piece_hijas.h"
-
-
 #include "pieceTextures.h"
 #include "chessGame.h"
 
-//?KING
+// KING
     
     // Override setTexture
     void PKing::setTexture() {
@@ -82,7 +80,7 @@
 
 
 
-//?QUEEN
+// QUEEN
 
     // Override setTexture
     void PQueen::setTexture() {
@@ -91,7 +89,7 @@
     }
 
     void PQueen::calcPiecePossibleMoves(){
-        /**/
+        
         int piecePos{getPosition()};
         getPossibleMoves().clear();
         
@@ -229,7 +227,7 @@
 
     
 
-//?Rook
+// Rook
   
 
     // Override setTexture
@@ -296,13 +294,13 @@
 
     }
 
-//?BISHOP
+// BISHOP
 
     // Override setTexture
     void PBishop::setTexture() {
         m_sprite.setTexture(m_player ? PieceTextures::whiteBishop : PieceTextures::blackBishop);
         Piece::setTexture();
-    // Resto de la implementación...
+
     }
     void PBishop::calcPiecePossibleMoves(){
         int piecePos{getPosition()};
@@ -384,7 +382,7 @@
 
     }
 
-//?KNIGHT
+// KNIGHT
     // Override setTexture
     void PKnight::setTexture() {
         m_sprite.setTexture(m_player ? PieceTextures::whiteKnight : PieceTextures::blackKnight);
@@ -417,7 +415,7 @@ void PKnight::calcPiecePossibleMoves() {
     }
 }
 
-//?PAWN
+// PAWN
 
     // Implementación de setTexture
     void PPawn::setTexture() {

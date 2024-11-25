@@ -1,7 +1,6 @@
-/*
-    This header file contains th ChessGame class.
-    contains the whole game.
-*/
+
+// Este archivo header contiene la clase chessGame. contiene el juego completo.
+
 
 #ifndef _CHESSGAME_H
 #define _CHESSGAME_H
@@ -26,10 +25,10 @@ private:
     vector<sf::RectangleShape> possibleMovesSquares;
     
     Piece* selectedPiece; //seguira la pieza seleccionada y la usaremos en todo el codigo sin necesidad de copiar toda la info de la pieza
-    /*
-    vector<sf::RectangleShape> possibleMovesSquares;
     
-    */
+    // vector<sf::RectangleShape> possibleMovesSquares;
+    
+    
     sf::RectangleShape infoRestart;
     string lastMove;
     sf::Font font;
@@ -84,7 +83,7 @@ public:
     void moveSelected(int pos);
 
     void restart();
-    //!PRUEBA ERASE
+    //!P ERASE
 
      std::array<int, 16> getPosicionesWhitePieces();
      std::array<int, 16> getPosicionesBlackPieces();

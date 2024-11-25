@@ -1,7 +1,4 @@
-/*
-    This code file contains static member initialisations
-    of pieceTextures.h
-*/
+// Este archivo contiene inicializaciones de miembros estaticos de pieceTextures.h
 
 #include "pieceTextures.h"
 

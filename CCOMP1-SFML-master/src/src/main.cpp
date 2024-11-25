@@ -3,14 +3,14 @@
 #include "chessGame.h"
 using namespace std;
 
-// Función para mostrar el menú inicial
+// Funcion para mostrar el menú inicial
 bool showMenu(sf::RenderWindow& window) {
     sf::Font font;
-    font.loadFromFile("Texturesa/arial.ttf"); // Asegúrate de que este archivo exista
+    font.loadFromFile("Texturesa/arial.ttf"); 
 
-    // Cargar imagen de fondo
+    // Cargar fondo
     sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("background.jpeg")) { // Asegúrate de que la ruta de la imagen sea correcta
+    if (!backgroundTexture.loadFromFile("background.jpeg")) { 
         cout << "Error cargando la imagen de fondo" << endl;
         return false;
     }
@@ -25,7 +25,7 @@ bool showMenu(sf::RenderWindow& window) {
     exitText.setPosition(100, 250);
     exitText.setFillColor(sf::Color::White);
 
-    // Crear los recuadros para las opciones
+    // recuadros para las opciones
     sf::RectangleShape playRect(sf::Vector2f(playText.getGlobalBounds().width + 20, playText.getGlobalBounds().height + 10));
     playRect.setPosition(90, 159);
     playRect.setFillColor(sf::Color(50, 50, 50, 200)); // Fondo semitransparente
@@ -46,7 +46,7 @@ bool showMenu(sf::RenderWindow& window) {
 
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    // Verificar si el clic está dentro de las áreas de las opciones
+                    // Verificar si el clic está dentro de las areas de las opciones
                     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
                     if (playRect.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
@@ -61,7 +61,7 @@ bool showMenu(sf::RenderWindow& window) {
             }
         }
 
-        // Dibujar el menú con la imagen de fondo
+        // Dibujar el menu con la imagen de fondo
         window.clear();
         window.draw(background); // Fondo de la imagen
         window.draw(playRect); // Recuadro de "JUGAR"

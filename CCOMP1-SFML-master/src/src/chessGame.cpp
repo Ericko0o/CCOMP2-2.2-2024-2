@@ -222,7 +222,7 @@ bool ChessGame::selectPiece(int pos){
     for (int i=0;i<16;i++){
         if(playerTurn){
             if (whitePieces[i]->getPosition()==pos){
-            selectedPiece = whitePieces[i]; //todo aca se quito &
+            selectedPiece = whitePieces[i];
             selected = true;
             break;
             }
